@@ -49,15 +49,19 @@ void MainWindow::on_pushButton_imageSaveDirectory_clicked()
 
 void MainWindow::on_pushButton_renameImages_clicked()
 {
+    ui->pushButton_renameImages->setText("Renaming Images....");
     for( int i = 0; i < originalFileNames.size(); i++)
     {
         QFile sFile(originalFileNames.at(i));
         sFile.rename(ui->pushButton_imageSaveDirectory->text().append("/").append(convertedFileNames.at(i)));
     }
+    ui->pushButton_renameImages->setText("Finished Renaming!");
+    QTimer::singleShot(3000, this, SLOT(reset_pushButton_renameImages()));
 }
 
 void MainWindow::renameImages()
 {
+
     convertedFileNames.clear();
     QString imageRenamePreview;
     QString renamePattern = getRenamePattern();
@@ -98,4 +102,10 @@ void MainWindow::on_lineEdit_renamePattern_textChanged(const QString &arg1)
     save.endGroup();
 
     renameImages();
+}
+
+void MainWindow::reset_pushButton_renameImages()
+{
+    ui->pushButton_renameImages->setText("Rename Images");
+    ui->label_renamePreview->clear();
 }

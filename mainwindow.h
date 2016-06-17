@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QSettings>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,8 @@ private slots:
     QString getRenamePattern();
 
     void on_lineEdit_renamePattern_textChanged(const QString &arg1);
+
+    void reset_pushButton_renameImages();
 
 private:
     Ui::MainWindow *ui;
