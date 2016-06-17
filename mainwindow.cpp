@@ -37,7 +37,11 @@ void MainWindow::on_pushButton_imageSaveDirectory_clicked()
 
 void MainWindow::on_pushButton_renameImages_clicked()
 {
-
+    for( int i = 0; i < originalFileNames.size(); i++)
+    {
+        QFile sFile(originalFileNames.at(i));
+        sFile.rename(ui->pushButton_imageSaveDirectory->text().append("/").append(convertedFileNames.at(i)));
+    }
 }
 
 void MainWindow::renameImages()
