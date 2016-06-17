@@ -29,6 +29,8 @@ private slots:
 
     QString getRenamePattern();
 
+    void on_lineEdit_renamePattern_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QStringList originalFileNames;

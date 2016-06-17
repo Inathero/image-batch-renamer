@@ -6,6 +6,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QSettings save(QApplication::applicationDirPath().append("/").append("settings.ina"),QSettings::IniFormat);
+
+    save.beginGroup("General");
+    ui->pushButton_imageSaveDirectory->setText(save.value("SaveDirectory", "Save Images Directory (Click Here)").toString());
+    ui->lineEdit_renamePattern->setText(save.value("RenamePattern", "Madoka_#").toString());
+    save.endGroup();
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +39,12 @@ void MainWindow::on_pushButton_imageSaveDirectory_clicked()
 
     if (dialog.exec())
         ui->pushButton_imageSaveDirectory->setText(dialog.selectedFiles().first());
+
+    QSettings save(QApplication::applicationDirPath().append("/").append("settings.ina"),QSettings::IniFormat);
+
+    save.beginGroup("General");
+    save.setValue("SaveDirectory", ui->pushButton_imageSaveDirectory->text());
+    save.endGroup();
 }
 
 void MainWindow::on_pushButton_renameImages_clicked()
@@ -75,4 +87,15 @@ QString MainWindow::getRenamePattern()
     // Probably not needed
     QString renamePattern = ui->lineEdit_renamePattern->text();
     return renamePattern;
+}
+
+void MainWindow::on_lineEdit_renamePattern_textChanged(const QString &arg1)
+{
+    QSettings save(QApplication::applicationDirPath().append("/").append("settings.ina"),QSettings::IniFormat);
+
+    save.beginGroup("General");
+    save.setValue("RenamePattern", arg1);
+    save.endGroup();
+
+    renameImages();
 }
