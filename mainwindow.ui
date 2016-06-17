@@ -57,7 +57,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_renamePattern"/>
+        <widget class="QLineEdit" name="lineEdit_renamePattern">
+         <property name="text">
+          <string>Madoka_#</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

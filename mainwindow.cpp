@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_imageSelect_clicked()
 {
     QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
 
     originalFileNames.clear();
     if (dialog.exec())
@@ -39,11 +39,22 @@ void MainWindow::renameImages()
 {
     QString imageRenamePreview;
     QString renamePattern = getRenamePattern();
+    int increment = 1;
     foreach(QString sFileName, originalFileNames)
     {
-        imageRenamePreview.append(sFileName + " -> ");
+        QFileInfo fInfo(sFileName);
+        imageRenamePreview.append(fInfo.fileName() + " -> ");
 
+        sFileName.replace( fInfo.baseName(), renamePattern);
+        sFileName.replace( "#", QString::number(increment));
+
+        fInfo.setFile(sFileName);
+        imageRenamePreview.append(fInfo.fileName());
+        imageRenamePreview.append("\n");
+
+        increment++;
     }
+    ui->label_renamePreview->setText(imageRenamePreview);
 }
 
 QString MainWindow::getRenamePattern()

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QSettings>
 
 namespace Ui {
