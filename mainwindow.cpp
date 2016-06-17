@@ -27,7 +27,12 @@ void MainWindow::on_pushButton_imageSelect_clicked()
 
 void MainWindow::on_pushButton_imageSaveDirectory_clicked()
 {
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    dialog.setOptions(QFileDialog::ShowDirsOnly);
 
+    if (dialog.exec())
+        ui->pushButton_imageSaveDirectory->setText(dialog.selectedFiles().first());
 }
 
 void MainWindow::on_pushButton_renameImages_clicked()
@@ -37,6 +42,7 @@ void MainWindow::on_pushButton_renameImages_clicked()
 
 void MainWindow::renameImages()
 {
+    convertedFileNames.clear();
     QString imageRenamePreview;
     QString renamePattern = getRenamePattern();
     int increment = 1;
@@ -52,6 +58,8 @@ void MainWindow::renameImages()
         imageRenamePreview.append(fInfo.fileName());
         imageRenamePreview.append("\n");
 
+//        convertedFileNames.append(sFileName); // full link
+        convertedFileNames.append(fInfo.fileName()); // only file name
         increment++;
     }
     ui->label_renamePreview->setText(imageRenamePreview);
