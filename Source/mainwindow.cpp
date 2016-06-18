@@ -82,7 +82,7 @@ void MainWindow::renameImages()
         convertedFileNames.append(fInfo.fileName()); // only file name
         increment++;
     }
-    ui->label_renamePreview->setText(imageRenamePreview);
+    ui->plainTextEdit_renamePreview->setPlainText(imageRenamePreview);
 }
 
 QString MainWindow::getRenamePattern()
@@ -107,5 +107,5 @@ void MainWindow::on_lineEdit_renamePattern_textChanged(const QString &arg1)
 void MainWindow::reset_pushButton_renameImages()
 {
     ui->pushButton_renameImages->setText("Rename Images");
-    ui->label_renamePreview->clear();
+    ui->plainTextEdit_renamePreview->clear();
 }
